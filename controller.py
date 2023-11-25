@@ -79,10 +79,12 @@ class Controller():
         group_parser = FinderGroups(self.token)
         posts_parser = FinderAddPosts(self.token)
         groups_id_set = set()
+        group_url = set()
         for keyword in self.keywords:
             groups_id = group_parser.findGroupsId(keyword, self.count_members_filter)
             for id in groups_id:
                 groups_id_set.add(id)
+                group_url.add(f'https://vk.com/public{id}')
 
         walls_url = []
         set_size = len(groups_id_set)
@@ -92,4 +94,4 @@ class Controller():
             for wall_id in walls_id:
                 walls_url.append(f'https://vk.com/public{id}?w=wall-{id}_{wall_id}')
 
-        return walls_url
+        return walls_url, group_url
